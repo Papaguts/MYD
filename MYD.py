@@ -19,7 +19,7 @@ os.environ['PATH'] += ';' + vlc_path
 import vlc
 
 # Setze den Server auf die Testumgebung, um die Anfragen zu minimieren
-musicbrainzngs.set_useragent("MichasYoutubeDownloader", "0.1", "http://example.com")
+musicbrainzngs.set_useragent("MichasYoutubeDownloader", "0.2", "http://example.com")
 musicbrainzngs.set_hostname("test.musicbrainz.org")
 
 # VLC Player initialisieren
