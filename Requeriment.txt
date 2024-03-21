@@ -1,0 +1,5 @@
+musicbrainzngs
+pytube
+python-vlc
+pydub
+youtube-search-python
