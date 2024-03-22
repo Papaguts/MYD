@@ -12,14 +12,15 @@ import threading  # Für den Thread
 # Setzen Sie den relativen Pfad zum VLC-Installationsverzeichnis (zum Beispiel im Projektordner)
 dirname = os.path.dirname(__file__)
 #with that I made the relative path into an absolute path
+dirname = dirname[:-4]
 vlc_path = os.path.join(dirname,'vlc')
-
+print(vlc_path)
 # Setzen Sie die Umgebungsvariable VLC_PLUGIN_PATH
 os.environ['PATH'] += ';' + vlc_path
 import vlc
 
 # Setze den Server auf die Testumgebung, um die Anfragen zu minimieren
-musicbrainzngs.set_useragent("MichasYoutubeDownloader", "0.2", "http://example.com")
+musicbrainzngs.set_useragent("MichasYoutubeDownloader", "0.1", "http://example.com")
 musicbrainzngs.set_hostname("test.musicbrainz.org")
 
 # VLC Player initialisieren
@@ -28,7 +29,6 @@ player = instance.media_player_new()
 
 # Globale Variable für den Timer
 search_timer = None
-
 # Globale Variable für den Thread
 search_thread = None
 
@@ -160,6 +160,7 @@ def download_song():
     if (current_stream):
         current_stream.download(filename="temp.mp4")
         convert_to_mp3("temp.mp4",current_stream.title+".mp3")
+        os.remove("temp.mp4")
         messagebox.showinfo("Download", "Alles geklappt")
     else:
         messagebox.showerror("Error", "Upsi download nicht geklappt")
@@ -183,7 +184,7 @@ columns = ("Artist", "Title", "Album", "Duration")
 song_tree = ttk.Treeview(root, columns=columns, show="headings")
 for col in columns:
     song_tree.heading(col, text=col)
-song_tree.grid(row=3, column=1, columnspan=2, padx=10, pady=5, sticky="ew")
+song_tree.grid(row=3, column=0, columnspan=2, padx=10, pady=5, sticky="ew")
 
 song_scrollbar = ttk.Scrollbar(root, orient="horizontal", command=song_tree.xview)
 song_scrollbar.grid(row=4, column=0, columnspan=3, sticky="ew")
